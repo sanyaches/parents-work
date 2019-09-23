@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/messes",
+      "handler": "Mess.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/messes/count",
+      "handler": "Mess.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/messes/:id",
+      "handler": "Mess.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/messes",
+      "handler": "Mess.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/messes/:id",
+      "handler": "Mess.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/messes/:id",
+      "handler": "Mess.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

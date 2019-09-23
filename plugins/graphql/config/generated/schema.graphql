@@ -1,0 +1,561 @@
+type City {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  city: String
+}
+
+input CityInput {
+  city: String
+}
+
+type Class {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  school: School
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+input ClassInput {
+  name: String
+  school: ID
+  users: [ID]
+}
+
+input createCityInput {
+  data: CityInput
+}
+
+type createCityPayload {
+  city: City
+}
+
+input createClassInput {
+  data: ClassInput
+}
+
+type createClassPayload {
+  class: Class
+}
+
+input createMessInput {
+  data: MessInput
+}
+
+type createMessPayload {
+  mess: Mess
+}
+
+input createOrderInput {
+  data: OrderInput
+}
+
+type createOrderPayload {
+  order: Order
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input createSchoolInput {
+  data: SchoolInput
+}
+
+type createSchoolPayload {
+  school: School
+}
+
+input createTallageInput {
+  data: TallageInput
+}
+
+type createTallagePayload {
+  tallage: Tallage
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""
+The `DateTime` scalar represents a date and time following the ISO 8601 standard
+"""
+scalar DateTime
+
+input deleteCityInput {
+  where: InputID
+}
+
+type deleteCityPayload {
+  city: City
+}
+
+input deleteClassInput {
+  where: InputID
+}
+
+type deleteClassPayload {
+  class: Class
+}
+
+input deleteMessInput {
+  where: InputID
+}
+
+type deleteMessPayload {
+  mess: Mess
+}
+
+input deleteOrderInput {
+  where: InputID
+}
+
+type deleteOrderPayload {
+  order: Order
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteSchoolInput {
+  where: InputID
+}
+
+type deleteSchoolPayload {
+  school: School
+}
+
+input deleteTallageInput {
+  where: InputID
+}
+
+type deleteTallagePayload {
+  tallage: Tallage
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+input editCityInput {
+  city: String
+}
+
+input editClassInput {
+  name: String
+  school: ID
+  users: [ID]
+}
+
+input editFileInput {
+  name: String
+  hash: String
+  sha256: String
+  ext: String
+  mime: String
+  size: String
+  url: String
+  provider: String
+  public_id: String
+  related: [ID]
+}
+
+input editMessInput {
+  title: String
+  description: String
+  image: ID
+}
+
+input editOrderInput {
+  user: ID
+  tallage: ID
+  paid: Boolean
+  price: Float
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+input editSchoolInput {
+  name: String
+  classes: [ID]
+  tallages: [ID]
+}
+
+input editTallageInput {
+  title: String
+  description: String
+  price: Float
+  orders: [ID]
+  school: ID
+  class: ID
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  name: String
+  family: String
+  patronymic: String
+  photo: ID
+  orders: [ID]
+  class: ID
+}
+
+input FileInput {
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related: [ID]
+}
+
+input InputID {
+  id: ID!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""The `Long` scalar type represents 52-bit integers"""
+scalar Long
+
+type Mess {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  description: String
+  image: UploadFile
+}
+
+input MessInput {
+  title: String
+  description: String
+  image: ID
+}
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+
+type Mutation {
+  createCity(input: createCityInput): createCityPayload
+  updateCity(input: updateCityInput): updateCityPayload
+  deleteCity(input: deleteCityInput): deleteCityPayload
+  createClass(input: createClassInput): createClassPayload
+  updateClass(input: updateClassInput): updateClassPayload
+  deleteClass(input: deleteClassInput): deleteClassPayload
+  createMess(input: createMessInput): createMessPayload
+  updateMess(input: updateMessInput): updateMessPayload
+  deleteMess(input: deleteMessInput): deleteMessPayload
+  createOrder(input: createOrderInput): createOrderPayload
+  updateOrder(input: updateOrderInput): updateOrderPayload
+  deleteOrder(input: deleteOrderInput): deleteOrderPayload
+  createSchool(input: createSchoolInput): createSchoolPayload
+  updateSchool(input: updateSchoolInput): updateSchoolPayload
+  deleteSchool(input: deleteSchoolInput): deleteSchoolPayload
+  createTallage(input: createTallageInput): createTallagePayload
+  updateTallage(input: updateTallageInput): updateTallagePayload
+  deleteTallage(input: deleteTallageInput): deleteTallagePayload
+
+  """Create a new role"""
+  createRole(input: createRoleInput): createRolePayload
+
+  """Update an existing role"""
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """Delete an existing role"""
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """Create a new user"""
+  createUser(input: createUserInput): createUserPayload
+
+  """Update an existing user"""
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """Delete an existing user"""
+  deleteUser(input: deleteUserInput): deleteUserPayload
+  upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
+}
+
+type Order {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user: UsersPermissionsUser
+  tallage: Tallage
+  paid: Boolean
+  price: Float
+}
+
+input OrderInput {
+  user: ID
+  tallage: ID
+  paid: Boolean
+  price: Float
+}
+
+type Query {
+  city(id: ID!): City
+  cities(sort: String, limit: Int, start: Int, where: JSON): [City]
+  class(id: ID!): Class
+  classes(sort: String, limit: Int, start: Int, where: JSON): [Class]
+  mess(id: ID!): Mess
+  messes(sort: String, limit: Int, start: Int, where: JSON): [Mess]
+  order(id: ID!): Order
+  orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+  school(id: ID!): School
+  schools(sort: String, limit: Int, start: Int, where: JSON): [School]
+  tallage(id: ID!): Tallage
+  tallages(sort: String, limit: Int, start: Int, where: JSON): [Tallage]
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  role(id: ID!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  user(id: ID!): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  me: UsersPermissionsMe
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+type School {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  classes(sort: String, limit: Int, start: Int, where: JSON): [Class]
+  tallages(sort: String, limit: Int, start: Int, where: JSON): [Tallage]
+}
+
+input SchoolInput {
+  name: String
+  classes: [ID]
+  tallages: [ID]
+}
+
+type Tallage {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  description: String
+  price: Float
+  school: School
+  class: Class
+  orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+}
+
+input TallageInput {
+  title: String
+  description: String
+  price: Float
+  orders: [ID]
+  school: ID
+  class: ID
+}
+
+input updateCityInput {
+  where: InputID
+  data: editCityInput
+}
+
+type updateCityPayload {
+  city: City
+}
+
+input updateClassInput {
+  where: InputID
+  data: editClassInput
+}
+
+type updateClassPayload {
+  class: Class
+}
+
+input updateMessInput {
+  where: InputID
+  data: editMessInput
+}
+
+type updateMessPayload {
+  mess: Mess
+}
+
+input updateOrderInput {
+  where: InputID
+  data: editOrderInput
+}
+
+type updateOrderPayload {
+  order: Order
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateSchoolInput {
+  where: InputID
+  data: editSchoolInput
+}
+
+type updateSchoolPayload {
+  school: School
+}
+
+input updateTallageInput {
+  where: InputID
+  data: editTallageInput
+}
+
+type updateTallagePayload {
+  tallage: Tallage
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type UploadFile {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  name: String
+  family: String
+  patronymic: String
+  photo: ID
+  orders: [ID]
+  class: ID
+}
+
+type UsersPermissionsMe {
+  _id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  _id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+type UsersPermissionsPermission {
+  id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsUser {
+  id: ID!
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+  name: String
+  family: String
+  patronymic: String
+  photo: UploadFile
+  class: Class
+  orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+}

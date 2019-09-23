@@ -1,0 +1,18 @@
+{
+  "connection": "default",
+  "collectionName": "cities",
+  "info": {
+    "name": "city",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "city": {
+      "type": "string"
+    }
+  }
+}

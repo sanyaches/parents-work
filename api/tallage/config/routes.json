@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tallages",
+      "handler": "Tallage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tallages/count",
+      "handler": "Tallage.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tallages/:id",
+      "handler": "Tallage.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tallages",
+      "handler": "Tallage.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tallages/:id",
+      "handler": "Tallage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tallages/:id",
+      "handler": "Tallage.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

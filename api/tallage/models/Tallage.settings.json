@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "tallages",
+  "info": {
+    "name": "tallage",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "orders": {
+      "collection": "order",
+      "via": "tallage"
+    },
+    "school": {
+      "model": "school",
+      "via": "tallages"
+    },
+    "class": {
+      "model": "class"
+    }
+  }
+}

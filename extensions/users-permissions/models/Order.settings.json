@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "orders",
+  "info": {
+    "name": "order",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "via": "orders",
+      "plugin": "users-permissions"
+    },
+    "tallage": {
+      "model": "tallage",
+      "via": "orders"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "price": {
+      "type": "decimal"
+    }
+  }
+}
