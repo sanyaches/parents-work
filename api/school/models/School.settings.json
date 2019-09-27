@@ -21,6 +21,10 @@
     "tallages": {
       "collection": "tallage",
       "via": "school"
+    },
+    "city": {
+      "model": "city",
+      "via": "schools"
     }
   }
 }

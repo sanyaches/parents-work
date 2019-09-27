@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "cities",
+  "collectionName": "votes",
   "info": {
-    "name": "city",
+    "name": "vote",
     "description": ""
   },
   "options": {
@@ -11,12 +11,8 @@
     "comment": ""
   },
   "attributes": {
-    "city": {
+    "title": {
       "type": "string"
-    },
-    "schools": {
-      "collection": "school",
-      "via": "city"
     }
   }
 }

@@ -22,6 +22,11 @@
       "collection": "user",
       "via": "class",
       "plugin": "users-permissions"
+    },
+    "tallage": {
+      "columnName": "class",
+      "model": "tallage",
+      "via": "class"
     }
   }
 }

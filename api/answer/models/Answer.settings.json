@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "cities",
+  "collectionName": "answers",
   "info": {
-    "name": "city",
-    "description": ""
+    "name": "answer",
+    "description": "answers for vote"
   },
   "options": {
     "increments": true,
@@ -11,12 +11,8 @@
     "comment": ""
   },
   "attributes": {
-    "city": {
+    "answer": {
       "type": "string"
-    },
-    "schools": {
-      "collection": "school",
-      "via": "city"
     }
   }
 }

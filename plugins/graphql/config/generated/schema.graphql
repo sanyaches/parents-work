@@ -1,12 +1,26 @@
+"""answers for vote"""
+type Answer {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  answer: String
+}
+
+input AnswerInput {
+  answer: String
+}
+
 type City {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
   city: String
+  schools(sort: String, limit: Int, start: Int, where: JSON): [School]
 }
 
 input CityInput {
   city: String
+  schools: [ID]
 }
 
 type Class {
@@ -15,6 +29,7 @@ type Class {
   updated_at: DateTime!
   name: String
   school: School
+  tallage: Tallage
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
 }
 
@@ -22,6 +37,15 @@ input ClassInput {
   name: String
   school: ID
   users: [ID]
+  tallage: ID
+}
+
+input createAnswerInput {
+  data: AnswerInput
+}
+
+type createAnswerPayload {
+  answer: Answer
 }
 
 input createCityInput {
@@ -88,10 +112,26 @@ type createUserPayload {
   user: UsersPermissionsUser
 }
 
+input createVoteInput {
+  data: VoteInput
+}
+
+type createVotePayload {
+  vote: Vote
+}
+
 """
 The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
+
+input deleteAnswerInput {
+  where: InputID
+}
+
+type deleteAnswerPayload {
+  answer: Answer
+}
 
 input deleteCityInput {
   where: InputID
@@ -157,14 +197,28 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
+input deleteVoteInput {
+  where: InputID
+}
+
+type deleteVotePayload {
+  vote: Vote
+}
+
+input editAnswerInput {
+  answer: String
+}
+
 input editCityInput {
   city: String
+  schools: [ID]
 }
 
 input editClassInput {
   name: String
   school: ID
   users: [ID]
+  tallage: ID
 }
 
 input editFileInput {
@@ -205,6 +259,7 @@ input editSchoolInput {
   name: String
   classes: [ID]
   tallages: [ID]
+  city: ID
 }
 
 input editTallageInput {
@@ -231,6 +286,10 @@ input editUserInput {
   photo: ID
   orders: [ID]
   class: ID
+}
+
+input editVoteInput {
+  title: String
 }
 
 input FileInput {
@@ -273,9 +332,12 @@ input MessInput {
   image: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
+  createAnswer(input: createAnswerInput): createAnswerPayload
+  updateAnswer(input: updateAnswerInput): updateAnswerPayload
+  deleteAnswer(input: deleteAnswerInput): deleteAnswerPayload
   createCity(input: createCityInput): createCityPayload
   updateCity(input: updateCityInput): updateCityPayload
   deleteCity(input: deleteCityInput): deleteCityPayload
@@ -294,6 +356,9 @@ type Mutation {
   createTallage(input: createTallageInput): createTallagePayload
   updateTallage(input: updateTallageInput): updateTallagePayload
   deleteTallage(input: deleteTallageInput): deleteTallagePayload
+  createVote(input: createVoteInput): createVotePayload
+  updateVote(input: updateVoteInput): updateVotePayload
+  deleteVote(input: deleteVoteInput): deleteVotePayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -333,6 +398,8 @@ input OrderInput {
 }
 
 type Query {
+  answer(id: ID!): Answer
+  answers(sort: String, limit: Int, start: Int, where: JSON): [Answer]
   city(id: ID!): City
   cities(sort: String, limit: Int, start: Int, where: JSON): [City]
   class(id: ID!): Class
@@ -345,6 +412,8 @@ type Query {
   schools(sort: String, limit: Int, start: Int, where: JSON): [School]
   tallage(id: ID!): Tallage
   tallages(sort: String, limit: Int, start: Int, where: JSON): [Tallage]
+  vote(id: ID!): Vote
+  votes(sort: String, limit: Int, start: Int, where: JSON): [Vote]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   role(id: ID!): UsersPermissionsRole
 
@@ -370,6 +439,7 @@ type School {
   created_at: DateTime!
   updated_at: DateTime!
   name: String
+  city: City
   classes(sort: String, limit: Int, start: Int, where: JSON): [Class]
   tallages(sort: String, limit: Int, start: Int, where: JSON): [Tallage]
 }
@@ -378,6 +448,7 @@ input SchoolInput {
   name: String
   classes: [ID]
   tallages: [ID]
+  city: ID
 }
 
 type Tallage {
@@ -399,6 +470,15 @@ input TallageInput {
   orders: [ID]
   school: ID
   class: ID
+}
+
+input updateAnswerInput {
+  where: InputID
+  data: editAnswerInput
+}
+
+type updateAnswerPayload {
+  answer: Answer
 }
 
 input updateCityInput {
@@ -471,6 +551,15 @@ input updateUserInput {
 
 type updateUserPayload {
   user: UsersPermissionsUser
+}
+
+input updateVoteInput {
+  where: InputID
+  data: editVoteInput
+}
+
+type updateVotePayload {
+  vote: Vote
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -558,4 +647,15 @@ type UsersPermissionsUser {
   photo: UploadFile
   class: Class
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+}
+
+type Vote {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+}
+
+input VoteInput {
+  title: String
 }
