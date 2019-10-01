@@ -290,13 +290,13 @@ input editUserInput {
   blocked: Boolean
   role: ID
   name: String
-  childname: String
   family: String
   patronymic: String
   photo: ID
   orders: [ID]
   class: ID
   vote: ID
+  childname: String
 }
 
 input editVoteInput {
@@ -608,13 +608,13 @@ input UserInput {
   blocked: Boolean
   role: ID
   name: String
-  childname: String
   family: String
   patronymic: String
   photo: ID
   orders: [ID]
   class: ID
   vote: ID
+  childname: String
 }
 
 type UsersPermissionsMe {
@@ -661,12 +661,12 @@ type UsersPermissionsUser {
   blocked: Boolean
   role: UsersPermissionsRole
   name: String
-  childname: String
   family: String
   patronymic: String
   photo: UploadFile
   class: Class
   vote: Vote
+  childname: String
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
 }
 
