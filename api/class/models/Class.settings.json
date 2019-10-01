@@ -27,6 +27,10 @@
       "columnName": "class",
       "model": "tallage",
       "via": "class"
+    },
+    "votes": {
+      "collection": "vote",
+      "via": "class"
     }
   }
 }

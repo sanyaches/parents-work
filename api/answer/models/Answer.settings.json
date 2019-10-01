@@ -13,6 +13,13 @@
   "attributes": {
     "answer": {
       "type": "string"
+    },
+    "vote": {
+      "model": "vote",
+      "via": "answers"
+    },
+    "count": {
+      "type": "integer"
     }
   }
 }

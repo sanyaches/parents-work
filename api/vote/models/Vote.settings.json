@@ -13,6 +13,29 @@
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "ended": {
+      "type": "boolean"
+    },
+    "date": {
+      "type": "date"
+    },
+    "answers": {
+      "collection": "answer",
+      "via": "vote"
+    },
+    "usercreator": {
+      "model": "user",
+      "plugin": "users-permissions"
+    },
+    "usersvoted": {
+      "collection": "user",
+      "via": "vote",
+      "plugin": "users-permissions"
+    },
+    "class": {
+      "model": "class",
+      "via": "votes"
     }
   }
 }

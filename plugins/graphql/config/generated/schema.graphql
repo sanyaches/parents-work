@@ -4,10 +4,14 @@ type Answer {
   created_at: DateTime!
   updated_at: DateTime!
   answer: String
+  vote: Vote
+  count: Int
 }
 
 input AnswerInput {
   answer: String
+  vote: ID
+  count: Int
 }
 
 type City {
@@ -31,6 +35,7 @@ type Class {
   school: School
   tallage: Tallage
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  votes(sort: String, limit: Int, start: Int, where: JSON): [Vote]
 }
 
 input ClassInput {
@@ -38,6 +43,7 @@ input ClassInput {
   school: ID
   users: [ID]
   tallage: ID
+  votes: [ID]
 }
 
 input createAnswerInput {
@@ -207,6 +213,8 @@ type deleteVotePayload {
 
 input editAnswerInput {
   answer: String
+  vote: ID
+  count: Int
 }
 
 input editCityInput {
@@ -219,6 +227,7 @@ input editClassInput {
   school: ID
   users: [ID]
   tallage: ID
+  votes: [ID]
 }
 
 input editFileInput {
@@ -281,15 +290,23 @@ input editUserInput {
   blocked: Boolean
   role: ID
   name: String
+  childname: String
   family: String
   patronymic: String
   photo: ID
   orders: [ID]
   class: ID
+  vote: ID
 }
 
 input editVoteInput {
   title: String
+  ended: Boolean
+  date: DateTime
+  answers: [ID]
+  usercreator: ID
+  usersvoted: [ID]
+  class: ID
 }
 
 input FileInput {
@@ -591,11 +608,13 @@ input UserInput {
   blocked: Boolean
   role: ID
   name: String
+  childname: String
   family: String
   patronymic: String
   photo: ID
   orders: [ID]
   class: ID
+  vote: ID
 }
 
 type UsersPermissionsMe {
@@ -642,10 +661,12 @@ type UsersPermissionsUser {
   blocked: Boolean
   role: UsersPermissionsRole
   name: String
+  childname: String
   family: String
   patronymic: String
   photo: UploadFile
   class: Class
+  vote: Vote
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
 }
 
@@ -654,8 +675,20 @@ type Vote {
   created_at: DateTime!
   updated_at: DateTime!
   title: String
+  ended: Boolean
+  date: DateTime
+  usercreator: UsersPermissionsUser
+  class: Class
+  answers(sort: String, limit: Int, start: Int, where: JSON): [Answer]
+  usersvoted(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
 }
 
 input VoteInput {
   title: String
+  ended: Boolean
+  date: DateTime
+  answers: [ID]
+  usercreator: ID
+  usersvoted: [ID]
+  class: ID
 }
