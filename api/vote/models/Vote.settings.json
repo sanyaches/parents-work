@@ -17,9 +17,6 @@
     "ended": {
       "type": "boolean"
     },
-    "date": {
-      "type": "date"
-    },
     "answers": {
       "collection": "answer",
       "via": "vote"
@@ -28,14 +25,12 @@
       "model": "user",
       "plugin": "users-permissions"
     },
-    "usersvoted": {
-      "collection": "user",
-      "via": "vote",
-      "plugin": "users-permissions"
-    },
     "class": {
       "model": "class",
       "via": "votes"
+    },
+    "created": {
+      "type": "string"
     }
   }
 }

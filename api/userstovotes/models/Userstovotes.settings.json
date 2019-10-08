@@ -1,0 +1,22 @@
+{
+  "connection": "default",
+  "collectionName": "userstovotes",
+  "info": {
+    "name": "userstovotes",
+    "description": "many-to-many decompose users <-> votes"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "plugin": "users-permissions"
+    },
+    "vote": {
+      "model": "vote"
+    }
+  }
+}

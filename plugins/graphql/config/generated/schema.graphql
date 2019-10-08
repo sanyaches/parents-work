@@ -118,6 +118,14 @@ type createUserPayload {
   user: UsersPermissionsUser
 }
 
+input createUserstovotesInput {
+  data: UserstovotesInput
+}
+
+type createUserstovotesPayload {
+  userstovote: Userstovotes
+}
+
 input createVoteInput {
   data: VoteInput
 }
@@ -201,6 +209,14 @@ input deleteUserInput {
 
 type deleteUserPayload {
   user: UsersPermissionsUser
+}
+
+input deleteUserstovotesInput {
+  where: InputID
+}
+
+type deleteUserstovotesPayload {
+  userstovote: Userstovotes
 }
 
 input deleteVoteInput {
@@ -295,18 +311,22 @@ input editUserInput {
   photo: ID
   orders: [ID]
   class: ID
-  vote: ID
   childname: String
+  undefined: [ID]
+}
+
+input editUserstovotesInput {
+  user: ID
+  vote: ID
 }
 
 input editVoteInput {
   title: String
   ended: Boolean
-  date: DateTime
   answers: [ID]
   usercreator: ID
-  usersvoted: [ID]
   class: ID
+  created: String
 }
 
 input FileInput {
@@ -349,7 +369,7 @@ input MessInput {
   image: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Userstovotes | createUserstovotesPayload | updateUserstovotesPayload | deleteUserstovotesPayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createAnswer(input: createAnswerInput): createAnswerPayload
@@ -373,6 +393,9 @@ type Mutation {
   createTallage(input: createTallageInput): createTallagePayload
   updateTallage(input: updateTallageInput): updateTallagePayload
   deleteTallage(input: deleteTallageInput): deleteTallagePayload
+  createUserstovotes(input: createUserstovotesInput): createUserstovotesPayload
+  updateUserstovotes(input: updateUserstovotesInput): updateUserstovotesPayload
+  deleteUserstovotes(input: deleteUserstovotesInput): deleteUserstovotesPayload
   createVote(input: createVoteInput): createVotePayload
   updateVote(input: updateVoteInput): updateVotePayload
   deleteVote(input: deleteVoteInput): deleteVotePayload
@@ -429,6 +452,8 @@ type Query {
   schools(sort: String, limit: Int, start: Int, where: JSON): [School]
   tallage(id: ID!): Tallage
   tallages(sort: String, limit: Int, start: Int, where: JSON): [Tallage]
+  userstovote(id: ID!): Userstovotes
+  userstovotes(sort: String, limit: Int, start: Int, where: JSON): [Userstovotes]
   vote(id: ID!): Vote
   votes(sort: String, limit: Int, start: Int, where: JSON): [Vote]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
@@ -570,6 +595,15 @@ type updateUserPayload {
   user: UsersPermissionsUser
 }
 
+input updateUserstovotesInput {
+  where: InputID
+  data: editUserstovotesInput
+}
+
+type updateUserstovotesPayload {
+  userstovote: Userstovotes
+}
+
 input updateVoteInput {
   where: InputID
   data: editVoteInput
@@ -613,8 +647,8 @@ input UserInput {
   photo: ID
   orders: [ID]
   class: ID
-  vote: ID
   childname: String
+  undefined: [ID]
 }
 
 type UsersPermissionsMe {
@@ -665,9 +699,23 @@ type UsersPermissionsUser {
   patronymic: String
   photo: UploadFile
   class: Class
-  vote: Vote
   childname: String
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+  undefined(sort: String, limit: Int, start: Int, where: JSON): [Userstovotes]
+}
+
+"""many-to-many decompose users <-> votes"""
+type Userstovotes {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user: UsersPermissionsUser
+  vote: Vote
+}
+
+input UserstovotesInput {
+  user: ID
+  vote: ID
 }
 
 type Vote {
@@ -676,19 +724,17 @@ type Vote {
   updated_at: DateTime!
   title: String
   ended: Boolean
-  date: DateTime
   usercreator: UsersPermissionsUser
   class: Class
+  created: String
   answers(sort: String, limit: Int, start: Int, where: JSON): [Answer]
-  usersvoted(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
 }
 
 input VoteInput {
   title: String
   ended: Boolean
-  date: DateTime
   answers: [ID]
   usercreator: ID
-  usersvoted: [ID]
   class: ID
+  created: String
 }

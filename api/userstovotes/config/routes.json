@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/userstovotes",
+      "handler": "Userstovotes.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/userstovotes/count",
+      "handler": "Userstovotes.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/userstovotes/:id",
+      "handler": "Userstovotes.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/userstovotes",
+      "handler": "Userstovotes.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/userstovotes/:id",
+      "handler": "Userstovotes.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/userstovotes/:id",
+      "handler": "Userstovotes.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
