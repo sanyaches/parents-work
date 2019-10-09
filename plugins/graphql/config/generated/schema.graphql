@@ -33,7 +33,6 @@ type Class {
   updated_at: DateTime!
   name: String
   school: School
-  tallage: Tallage
   users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
   votes(sort: String, limit: Int, start: Int, where: JSON): [Vote]
 }
@@ -42,7 +41,6 @@ input ClassInput {
   name: String
   school: ID
   users: [ID]
-  tallage: ID
   votes: [ID]
 }
 
@@ -242,7 +240,6 @@ input editClassInput {
   name: String
   school: ID
   users: [ID]
-  tallage: ID
   votes: [ID]
 }
 

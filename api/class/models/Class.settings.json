@@ -23,11 +23,6 @@
       "via": "class",
       "plugin": "users-permissions"
     },
-    "tallage": {
-      "columnName": "class",
-      "model": "tallage",
-      "via": "class"
-    },
     "votes": {
       "collection": "vote",
       "via": "class"

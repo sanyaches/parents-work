@@ -29,9 +29,7 @@
       "via": "tallages"
     },
     "class": {
-      "model": "class",
-      "via": "tallage",
-      "columnName": "tallage"
+      "model": "class"
     }
   }
 }
