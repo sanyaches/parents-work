@@ -14,6 +14,21 @@ input AnswerInput {
   count: Int
 }
 
+type Chat {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  class: Class
+  messages(sort: String, limit: Int, start: Int, where: JSON): [Message]
+}
+
+input ChatInput {
+  name: String
+  class: ID
+  messages: [ID]
+}
+
 type City {
   id: ID!
   created_at: DateTime!
@@ -52,6 +67,14 @@ type createAnswerPayload {
   answer: Answer
 }
 
+input createChatInput {
+  data: ChatInput
+}
+
+type createChatPayload {
+  chat: Chat
+}
+
 input createCityInput {
   data: CityInput
 }
@@ -66,6 +89,14 @@ input createClassInput {
 
 type createClassPayload {
   class: Class
+}
+
+input createMessageInput {
+  data: MessageInput
+}
+
+type createMessagePayload {
+  message: Message
 }
 
 input createMessInput {
@@ -145,6 +176,14 @@ type deleteAnswerPayload {
   answer: Answer
 }
 
+input deleteChatInput {
+  where: InputID
+}
+
+type deleteChatPayload {
+  chat: Chat
+}
+
 input deleteCityInput {
   where: InputID
 }
@@ -159,6 +198,14 @@ input deleteClassInput {
 
 type deleteClassPayload {
   class: Class
+}
+
+input deleteMessageInput {
+  where: InputID
+}
+
+type deleteMessagePayload {
+  message: Message
 }
 
 input deleteMessInput {
@@ -231,6 +278,12 @@ input editAnswerInput {
   count: Int
 }
 
+input editChatInput {
+  name: String
+  class: ID
+  messages: [ID]
+}
+
 input editCityInput {
   city: String
   schools: [ID]
@@ -254,6 +307,16 @@ input editFileInput {
   provider: String
   public_id: String
   related: [ID]
+}
+
+input editMessageInput {
+  userId: String
+  urlAvatar: String
+  childName: String
+  timeStamp: String
+  fullName: String
+  textMessage: String
+  chat: ID
 }
 
 input editMessInput {
@@ -360,18 +423,44 @@ type Mess {
   image: UploadFile
 }
 
+type Message {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  userId: String
+  urlAvatar: String
+  childName: String
+  timeStamp: String
+  fullName: String
+  textMessage: String
+  chat: Chat
+}
+
+input MessageInput {
+  userId: String
+  urlAvatar: String
+  childName: String
+  timeStamp: String
+  fullName: String
+  textMessage: String
+  chat: ID
+}
+
 input MessInput {
   title: String
   description: String
   image: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Userstovotes | createUserstovotesPayload | updateUserstovotesPayload | deleteUserstovotesPayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | Chat | createChatPayload | updateChatPayload | deleteChatPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Message | createMessagePayload | updateMessagePayload | deleteMessagePayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Userstovotes | createUserstovotesPayload | updateUserstovotesPayload | deleteUserstovotesPayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createAnswer(input: createAnswerInput): createAnswerPayload
   updateAnswer(input: updateAnswerInput): updateAnswerPayload
   deleteAnswer(input: deleteAnswerInput): deleteAnswerPayload
+  createChat(input: createChatInput): createChatPayload
+  updateChat(input: updateChatInput): updateChatPayload
+  deleteChat(input: deleteChatInput): deleteChatPayload
   createCity(input: createCityInput): createCityPayload
   updateCity(input: updateCityInput): updateCityPayload
   deleteCity(input: deleteCityInput): deleteCityPayload
@@ -381,6 +470,9 @@ type Mutation {
   createMess(input: createMessInput): createMessPayload
   updateMess(input: updateMessInput): updateMessPayload
   deleteMess(input: deleteMessInput): deleteMessPayload
+  createMessage(input: createMessageInput): createMessagePayload
+  updateMessage(input: updateMessageInput): updateMessagePayload
+  deleteMessage(input: deleteMessageInput): deleteMessagePayload
   createOrder(input: createOrderInput): createOrderPayload
   updateOrder(input: updateOrderInput): updateOrderPayload
   deleteOrder(input: deleteOrderInput): deleteOrderPayload
@@ -437,12 +529,16 @@ input OrderInput {
 type Query {
   answer(id: ID!): Answer
   answers(sort: String, limit: Int, start: Int, where: JSON): [Answer]
+  chat(id: ID!): Chat
+  chats(sort: String, limit: Int, start: Int, where: JSON): [Chat]
   city(id: ID!): City
   cities(sort: String, limit: Int, start: Int, where: JSON): [City]
   class(id: ID!): Class
   classes(sort: String, limit: Int, start: Int, where: JSON): [Class]
   mess(id: ID!): Mess
   messes(sort: String, limit: Int, start: Int, where: JSON): [Mess]
+  message(id: ID!): Message
+  messages(sort: String, limit: Int, start: Int, where: JSON): [Message]
   order(id: ID!): Order
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
   school(id: ID!): School
@@ -520,6 +616,15 @@ type updateAnswerPayload {
   answer: Answer
 }
 
+input updateChatInput {
+  where: InputID
+  data: editChatInput
+}
+
+type updateChatPayload {
+  chat: Chat
+}
+
 input updateCityInput {
   where: InputID
   data: editCityInput
@@ -536,6 +641,15 @@ input updateClassInput {
 
 type updateClassPayload {
   class: Class
+}
+
+input updateMessageInput {
+  where: InputID
+  data: editMessageInput
+}
+
+type updateMessagePayload {
+  message: Message
 }
 
 input updateMessInput {
