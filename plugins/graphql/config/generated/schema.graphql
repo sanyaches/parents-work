@@ -91,6 +91,22 @@ type createClassPayload {
   class: Class
 }
 
+input createEventInput {
+  data: EventInput
+}
+
+type createEventPayload {
+  event: Event
+}
+
+input createGalleryInput {
+  data: GalleryInput
+}
+
+type createGalleryPayload {
+  gallery: Gallery
+}
+
 input createMessageInput {
   data: MessageInput
 }
@@ -113,6 +129,14 @@ input createOrderInput {
 
 type createOrderPayload {
   order: Order
+}
+
+input createPhotoInput {
+  data: PhotoInput
+}
+
+type createPhotoPayload {
+  photo: Photo
 }
 
 input createRoleInput {
@@ -200,6 +224,22 @@ type deleteClassPayload {
   class: Class
 }
 
+input deleteEventInput {
+  where: InputID
+}
+
+type deleteEventPayload {
+  event: Event
+}
+
+input deleteGalleryInput {
+  where: InputID
+}
+
+type deleteGalleryPayload {
+  gallery: Gallery
+}
+
 input deleteMessageInput {
   where: InputID
 }
@@ -222,6 +262,14 @@ input deleteOrderInput {
 
 type deleteOrderPayload {
   order: Order
+}
+
+input deletePhotoInput {
+  where: InputID
+}
+
+type deletePhotoPayload {
+  photo: Photo
 }
 
 input deleteRoleInput {
@@ -296,6 +344,13 @@ input editClassInput {
   votes: [ID]
 }
 
+input editEventInput {
+  timeStamp: String
+  gallery: ID
+  photos: [ID]
+  eventName: String
+}
+
 input editFileInput {
   name: String
   hash: String
@@ -307,6 +362,11 @@ input editFileInput {
   provider: String
   public_id: String
   related: [ID]
+}
+
+input editGalleryInput {
+  events: [ID]
+  class: ID
 }
 
 input editMessageInput {
@@ -330,6 +390,12 @@ input editOrderInput {
   tallage: ID
   paid: Boolean
   price: Float
+}
+
+input editPhotoInput {
+  urlPhoto: String
+  event: ID
+  image: ID
 }
 
 input editRoleInput {
@@ -389,6 +455,23 @@ input editVoteInput {
   created: String
 }
 
+type Event {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  timeStamp: String
+  gallery: Gallery
+  eventName: String
+  photos(sort: String, limit: Int, start: Int, where: JSON): [Photo]
+}
+
+input EventInput {
+  timeStamp: String
+  gallery: ID
+  photos: [ID]
+  eventName: String
+}
+
 input FileInput {
   name: String!
   hash: String!
@@ -400,6 +483,19 @@ input FileInput {
   provider: String!
   public_id: String
   related: [ID]
+}
+
+type Gallery {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  class: Class
+  events(sort: String, limit: Int, start: Int, where: JSON): [Event]
+}
+
+input GalleryInput {
+  events: [ID]
+  class: ID
 }
 
 input InputID {
@@ -452,7 +548,7 @@ input MessInput {
   image: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | Chat | createChatPayload | updateChatPayload | deleteChatPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Message | createMessagePayload | updateMessagePayload | deleteMessagePayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Userstovotes | createUserstovotesPayload | updateUserstovotesPayload | deleteUserstovotesPayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Answer | createAnswerPayload | updateAnswerPayload | deleteAnswerPayload | Chat | createChatPayload | updateChatPayload | deleteChatPayload | City | createCityPayload | updateCityPayload | deleteCityPayload | Class | createClassPayload | updateClassPayload | deleteClassPayload | Event | createEventPayload | updateEventPayload | deleteEventPayload | Gallery | createGalleryPayload | updateGalleryPayload | deleteGalleryPayload | Mess | createMessPayload | updateMessPayload | deleteMessPayload | Message | createMessagePayload | updateMessagePayload | deleteMessagePayload | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | Photo | createPhotoPayload | updatePhotoPayload | deletePhotoPayload | School | createSchoolPayload | updateSchoolPayload | deleteSchoolPayload | Tallage | createTallagePayload | updateTallagePayload | deleteTallagePayload | Userstovotes | createUserstovotesPayload | updateUserstovotesPayload | deleteUserstovotesPayload | Vote | createVotePayload | updateVotePayload | deleteVotePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createAnswer(input: createAnswerInput): createAnswerPayload
@@ -467,6 +563,12 @@ type Mutation {
   createClass(input: createClassInput): createClassPayload
   updateClass(input: updateClassInput): updateClassPayload
   deleteClass(input: deleteClassInput): deleteClassPayload
+  createEvent(input: createEventInput): createEventPayload
+  updateEvent(input: updateEventInput): updateEventPayload
+  deleteEvent(input: deleteEventInput): deleteEventPayload
+  createGallery(input: createGalleryInput): createGalleryPayload
+  updateGallery(input: updateGalleryInput): updateGalleryPayload
+  deleteGallery(input: deleteGalleryInput): deleteGalleryPayload
   createMess(input: createMessInput): createMessPayload
   updateMess(input: updateMessInput): updateMessPayload
   deleteMess(input: deleteMessInput): deleteMessPayload
@@ -476,6 +578,9 @@ type Mutation {
   createOrder(input: createOrderInput): createOrderPayload
   updateOrder(input: updateOrderInput): updateOrderPayload
   deleteOrder(input: deleteOrderInput): deleteOrderPayload
+  createPhoto(input: createPhotoInput): createPhotoPayload
+  updatePhoto(input: updatePhotoInput): updatePhotoPayload
+  deletePhoto(input: deletePhotoInput): deletePhotoPayload
   createSchool(input: createSchoolInput): createSchoolPayload
   updateSchool(input: updateSchoolInput): updateSchoolPayload
   deleteSchool(input: deleteSchoolInput): deleteSchoolPayload
@@ -526,6 +631,21 @@ input OrderInput {
   price: Float
 }
 
+type Photo {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  urlPhoto: String
+  event: Event
+  image: UploadFile
+}
+
+input PhotoInput {
+  urlPhoto: String
+  event: ID
+  image: ID
+}
+
 type Query {
   answer(id: ID!): Answer
   answers(sort: String, limit: Int, start: Int, where: JSON): [Answer]
@@ -535,12 +655,18 @@ type Query {
   cities(sort: String, limit: Int, start: Int, where: JSON): [City]
   class(id: ID!): Class
   classes(sort: String, limit: Int, start: Int, where: JSON): [Class]
+  event(id: ID!): Event
+  events(sort: String, limit: Int, start: Int, where: JSON): [Event]
+  gallery(id: ID!): Gallery
+  galleries(sort: String, limit: Int, start: Int, where: JSON): [Gallery]
   mess(id: ID!): Mess
   messes(sort: String, limit: Int, start: Int, where: JSON): [Mess]
   message(id: ID!): Message
   messages(sort: String, limit: Int, start: Int, where: JSON): [Message]
   order(id: ID!): Order
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+  photo(id: ID!): Photo
+  photos(sort: String, limit: Int, start: Int, where: JSON): [Photo]
   school(id: ID!): School
   schools(sort: String, limit: Int, start: Int, where: JSON): [School]
   tallage(id: ID!): Tallage
@@ -643,6 +769,24 @@ type updateClassPayload {
   class: Class
 }
 
+input updateEventInput {
+  where: InputID
+  data: editEventInput
+}
+
+type updateEventPayload {
+  event: Event
+}
+
+input updateGalleryInput {
+  where: InputID
+  data: editGalleryInput
+}
+
+type updateGalleryPayload {
+  gallery: Gallery
+}
+
 input updateMessageInput {
   where: InputID
   data: editMessageInput
@@ -668,6 +812,15 @@ input updateOrderInput {
 
 type updateOrderPayload {
   order: Order
+}
+
+input updatePhotoInput {
+  where: InputID
+  data: editPhotoInput
+}
+
+type updatePhotoPayload {
+  photo: Photo
 }
 
 input updateRoleInput {

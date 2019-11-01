@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "photos",
+  "info": {
+    "name": "photo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "urlPhoto": {
+      "type": "string"
+    },
+    "event": {
+      "model": "event",
+      "via": "photos"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "events",
+  "info": {
+    "name": "event",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "timeStamp": {
+      "type": "string"
+    },
+    "gallery": {
+      "model": "gallery",
+      "via": "events"
+    },
+    "photos": {
+      "collection": "photo",
+      "via": "event"
+    },
+    "eventName": {
+      "type": "string"
+    }
+  }
+}

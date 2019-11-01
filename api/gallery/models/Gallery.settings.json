@@ -1,0 +1,22 @@
+{
+  "connection": "default",
+  "collectionName": "galleries",
+  "info": {
+    "name": "gallery",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "events": {
+      "collection": "event",
+      "via": "gallery"
+    },
+    "class": {
+      "model": "class"
+    }
+  }
+}
